@@ -25,11 +25,10 @@ class StoreBookRequest extends FormRequest
             'name' => 'required|min:3|string|unique:books,name' ,
             'author' => 'required|min:3|string' ,
             'description' => 'required|min:3|string' ,
-            'user_id' => 'required|integer|exists:users,id',
             'available_copies' => 'required|integer',
             'price' => 'required|integer',
-            'publish_year' => 'required|date',
-            'photo' => 'sometimes|image|mimes:jpg,jpeg,png,gif|max:2048',
+            'publish_year' => 'required|date_format:Y-m-d',
+            'photo' => 'required|image|mimes:jpg,jpeg,png,gif|max:2048',
             'category_id' => 'required|exists:categories,id',
         ];
     }

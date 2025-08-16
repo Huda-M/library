@@ -15,11 +15,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('book_id');
             $table->foreignId('user_id');
-            $table->foreignId('admin_id')->constrained('users')->onDelete('cascade');
             $table->enum('status', ['borrowed','returned']);
             $table->date('borrow_date');
             $table->date('return_date');
-            $table->date('actual_return_date');
+            $table->date('actual_return_date')->nullable();
             $table->timestamps();
         });
     }

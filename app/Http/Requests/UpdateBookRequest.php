@@ -21,13 +21,12 @@ class UpdateBookRequest extends FormRequest
      */
     public function rules(): array
     {
-        $bookId = $this->route('book'); // الحصول على معرف البوست من الرابط
+        $bookId = $this->route('book');
 
     return [
         'name' => 'required|min:3|string|unique:books,name,' . $bookId,
         'author' => 'required|min:3|string',
         'description' => 'required|min:3|string' ,
-        'user_id' => 'required|integer|exists:users,id',
         'available_copies' => 'required|integer',
         'price' => 'required|integer',
         'publish_year' => 'required|date',

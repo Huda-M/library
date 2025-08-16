@@ -57,6 +57,6 @@ class RegisteredStudentController extends Controller
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect(route('my.books', absolute: false));
     }
 }

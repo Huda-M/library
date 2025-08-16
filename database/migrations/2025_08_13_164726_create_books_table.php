@@ -20,7 +20,6 @@ return new class extends Migration
             $table->integer('available_copies');
             $table->integer('price');
             $table->date('publish_year');
-            $table->foreignId('user_id');
             $table->foreignId('category_id')->constrained();
             $table->timestamps();
         });

@@ -30,7 +30,6 @@ class BookSeeder extends Seeder
                 'available_copies' => $faker->numberBetween(1, 100),
                 'price' => $faker->numberBetween(50, 500),
                 'publish_year' => $faker->dateTimeBetween('-30 years', 'now')->format('Y-m-d'),
-                'user_id' => $faker->randomElement([1, 2]),
                 'category_id' => $categories->random()->id,
             ]);
         }
