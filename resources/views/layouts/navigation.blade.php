@@ -27,6 +27,9 @@
                         <x-nav-link :href="route('admin.borrows')" :active="request()->routeIs('admin.borrows')">
                             {{ __('All Borrows') }}
                         </x-nav-link>
+                        <x-nav-link :href="route('category.index')" :active="request()->routeIs('category.index')">
+                            {{ __('All categories') }}
+                        </x-nav-link>
                     @endif
                 </div>
             </div>

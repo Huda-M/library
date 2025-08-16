@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BorrowController;
+use App\Http\Controllers\CatagoryController;
 use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
@@ -40,6 +41,17 @@ Route::prefix('books')->group(function () {
     Route::put('/{book}', [BookController::class, 'update'])->name('books.update');
     Route::delete('/{book}', [BookController::class, 'destroy'])->name('books.destroy');
     Route::patch('/return/{book}', [BookController::class, 'returnBook'])->name('books.return');
+});
+});
+Route::middleware('auth')->group(function () {
+Route::prefix('categories')->group(function () {
+    Route::get('/', [CatagoryController::class, 'index'])->name('category.index');
+    Route::get('/create', [CatagoryController::class, 'create'])->name('category.create');
+    Route::post('/', [CatagoryController::class, 'store'])->name('category.store');
+    Route::get('/{category}', [CatagoryController::class, 'show'])->name('category.show');
+    Route::get('/{category}/edit', [CatagoryController::class, 'edit'])->name('category.edit');
+    Route::put('/{category}', [CatagoryController::class, 'update'])->name('category.update');
+    Route::delete('/{category}', [CatagoryController::class, 'destroy'])->name('category.destroy');
 });
 });
 

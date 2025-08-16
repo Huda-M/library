@@ -48,13 +48,13 @@
                                             </div>
                                         </td>
                                         <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
-                                            {{ $borrow->borrow_date->format('Y-m-d') }}
+                                            {{ $borrow->borrow_date }}
                                         </td>
                                         <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
-                                            {{ $borrow->return_date->format('Y-m-d') }}
+                                            {{ $borrow->return_date}}
                                         </td>
                                         <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
-                                            {{ $borrow->actual_return_date ? $borrow->actual_return_date->format('Y-m-d') : '-' }}
+                                            {{ $borrow->actual_return_date ? $borrow->actual_return_date : '-' }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <span class="px-2 py-1 text-xs font-semibold rounded-full {{ $borrow->status === 'borrowed' ? 'bg-yellow-100 text-yellow-800' : 'bg-green-100 text-green-800' }}">

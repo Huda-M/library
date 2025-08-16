@@ -1,40 +1,37 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-            {{ __('All Borrowed Books') }}
-        </h2>
-    </x-slot>
+
 
     <div class="py-12">
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-            <div class="overflow-hidden bg-white shadow-sm dark:bg-gray-800 sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
+            <div class="overflow-hidden shadow-lg bg-gradient-to-r from-[#1e3a8a] via-[#1e40af] to-[#f5f5dc] dark:from-[#1b3380] dark:via-[#1b3999] dark:to-[#dcd6b4] sm:rounded-xl">
+                <div class="p-8 text-gray-900 dark:text-gray-100">
+
                     @if($borrows->isEmpty())
                         <p class="py-8 text-center text-gray-500 dark:text-gray-400">
                             No books are currently borrowed.
                         </p>
                     @else
                         <div class="overflow-x-auto">
-                            <table class="min-w-full divide-y divide-gray-200">
-                                <thead class="bg-gray-50 dark:bg-gray-700">
+                        <table class="min-w-full text-sm font-medium text-black bg-white shadow-md rounded-xl dark:text-gray-900">
+                                <thead class="bg-gradient-to-r from-[#1e40af] to-[#f5f5dc] text-white dark:from-[#1b3999] dark:to-[#dcd6b4]">
                                     <tr>
-                                        <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-300">Book</th>
-                                        <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-300">Borrower</th>
-                                        <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-300">Borrow Date</th>
-                                        <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-300">Return Date</th>
-                                        <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-300">Actual Return Date</th>
-                                        <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-300">Status</th>
+                                        <th class="px-6 py-3 tracking-wider text-left uppercase">Book</th>
+                                        <th class="px-6 py-3 tracking-wider text-left uppercase">Borrower</th>
+                                        <th class="px-6 py-3 tracking-wider text-left uppercase">Borrow Date</th>
+                                        <th class="px-6 py-3 tracking-wider text-left uppercase">Return Date</th>
+                                        <th class="px-6 py-3 tracking-wider text-left uppercase">Actual Return Date</th>
+                                        <th class="px-6 py-3 tracking-wider text-left uppercase">Status</th>
                                     </tr>
                                 </thead>
                                 <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
                                     @foreach($borrows as $borrow)
-                                    <tr>
+                                    <tr class="transition hover:bg-blue-50 dark:hover:bg-gray-700">
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="flex items-center">
                                                 @if($borrow->book && $borrow->book->photo)
-                                                    <img src="{{ Storage::url($borrow->book->photo) }}" class="object-cover w-10 h-10 rounded">
+                                                    <img src="{{ Storage::url($borrow->book->photo) }}" class="object-cover w-12 h-12 rounded shadow-md">
                                                 @else
-                                                    <div class="flex items-center justify-center w-10 h-10 text-gray-500 bg-gray-200 border-2 border-dashed rounded">
+                                                    <div class="flex items-center justify-center w-12 h-12 text-gray-500 bg-gray-200 border-2 border-dashed rounded dark:bg-gray-500">
                                                         <i class="fas fa-book"></i>
                                                     </div>
                                                 @endif
@@ -75,7 +72,8 @@
                                             {{ $borrow->actual_return_date }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <span class="px-2 py-1 text-xs font-semibold rounded-full {{ $borrow->status === 'borrowed' ? 'bg-yellow-100 text-yellow-800' : 'bg-green-100 text-green-800' }}">
+                                            <span class="px-3 py-1 text-xs font-semibold rounded-full shadow
+                                                {{ $borrow->status === 'borrowed' ? 'bg-yellow-100 text-yellow-800' : 'bg-green-100 text-green-800' }}">
                                                 {{ ucfirst($borrow->status) }}
                                             </span>
                                         </td>
@@ -84,10 +82,11 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="mt-8">
+                        <div class="mt-6">
                             {{ $borrows->links() }}
                         </div>
                     @endif
+
                 </div>
             </div>
         </div>
