@@ -12,11 +12,28 @@ use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
-    public function index()
-    {
-        $books = Book::paginate(12);
-        return view('books.view_books', ['books' => $books]);
-    }
+    public function index(Request $request)
+{
+    $search = $request->input('search');
+    $categoryId = $request->input('category_id');
+
+    $books = Book::query()
+        ->when($search, function ($query, $search) {
+            return $query->where('name', 'like', "%{$search}%")
+                         ->orWhere('author', 'like', "%{$search}%");
+        })
+        ->when($categoryId, function ($query, $categoryId) {
+            return $query->where('category_id', $categoryId);
+        })
+        ->paginate(12);
+
+    $categories = Category::all();
+
+    return view('books.view_books', [
+        'books' => $books,
+        'categories' => $categories
+    ]);
+}
 
     public function create()
     {

@@ -11,11 +11,20 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $users = User::paginate(12);
-        return view('users.view_users', ['users' => $users]);
-    }
+    public function index(Request $request)
+{
+    $search = $request->input('search');
+
+    $users = User::query()
+        ->when($search, function ($query, $search) {
+            return $query->where('first_name', 'like', "%{$search}%")
+                         ->orWhere('last_name', 'like', "%{$search}%")
+                         ->orWhere('email', 'like', "%{$search}%");
+        })
+        ->paginate(12);
+
+    return view('users.view_users', ['users' => $users]);
+}
 
     /**
      * Show the form for creating a new resource.
