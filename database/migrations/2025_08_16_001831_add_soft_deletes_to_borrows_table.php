@@ -9,14 +9,14 @@ class AddSoftDeletesToBorrowsTable extends Migration
     public function up()
     {
         Schema::table('borrows', function (Blueprint $table) {
-            $table->softDeletes(); // This adds the `deleted_at` column
+            $table->softDeletes();
         });
     }
 
     public function down()
     {
         Schema::table('borrows', function (Blueprint $table) {
-            $table->dropSoftDeletes(); // This removes the `deleted_at` column
+            $table->dropSoftDeletes();
         });
     }
 }

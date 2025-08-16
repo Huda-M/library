@@ -10,17 +10,11 @@ use Faker\Factory as Faker;
 
 class BookSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
+
     public function run(): void
     {
         $faker = Faker::create();
-
-
         $categories = Category::all();
-
-
         for ($i = 0; $i < 50; $i++) {
             Book::create([
                 'name' => $faker->sentence(3),

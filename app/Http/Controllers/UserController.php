@@ -12,19 +12,17 @@ class UserController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-{
-    $search = $request->input('search');
-
-    $users = User::query()
-        ->when($search, function ($query, $search) {
-            return $query->where('first_name', 'like', "%{$search}%")
-                         ->orWhere('last_name', 'like', "%{$search}%")
-                         ->orWhere('email', 'like', "%{$search}%");
-        })
-        ->paginate(12);
-
-    return view('users.view_users', ['users' => $users]);
-}
+    {
+        $search = $request->input('search');
+        $users = User::query()
+            ->when($search, function ($query, $search) {
+                return $query->where('first_name', 'like', "%{$search}%")
+                    ->orWhere('last_name', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%");
+                })
+            ->paginate(12);
+        return view('users.view_users', ['users' => $users]);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -70,20 +68,19 @@ class UserController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
-{
-    $user = User::findOrFail($id);
-    $user->delete(); // Soft delete
-    return redirect()->route('users.index')->with('success', 'User deleted successfully');
-}
-public function userBorrows($userId)
-{
-    $user = User::withTrashed()->findOrFail($userId);
-    $borrows = Borrow::with(['book' => function($query) {
-        $query->withTrashed();
-    }])
-    ->where('user_id', $userId)
-    ->paginate(12);
-
-    return view('users.user_borrows', compact('user', 'borrows'));
-}
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+        return redirect()->route('users.index')->with('success', 'User deleted successfully');
+    }
+    public function userBorrows($userId)
+    {
+        $user = User::withTrashed()->findOrFail($userId);
+        $borrows = Borrow::with(['book' => function($query) {
+            $query->withTrashed();
+        }])
+            ->where('user_id', $userId)
+            ->paginate(12);
+        return view('users.user_borrows', compact('user', 'borrows'));
+    }
 }

@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Book extends Model
 {
-
     use HasFactory ,SoftDeletes;
     protected $fillable = [
         'name',
@@ -28,9 +27,8 @@ class Book extends Model
     {
         return $this->belongsTo(User::class);
     }
-public function borrows()
-{
-    return $this->hasMany(Borrow::class);
-}
-
+    public function borrows()
+    {
+        return $this->hasMany(Borrow::class);
+    }
 }

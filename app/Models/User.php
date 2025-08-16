@@ -56,23 +56,22 @@ class User extends Authenticatable
         return $this->hasMany(Book::class);
     }
 
-public function borrows()
-{
-    return $this->hasMany(Borrow::class);
-}
-public function borrowedBooks()
-{
-    return $this->belongsToMany(Book::class, 'borrows', 'user_id', 'book_id')
-                ->withTrashed() // تضمين الكتب المحذوفة
-                ->withPivot('status', 'borrow_date', 'return_date', 'actual_return_date')
-                ->withTimestamps();
-}
-// User.php
-public function activeBorrowedBooks()
-{
-    return $this->belongsToMany(Book::class, 'borrows', 'user_id', 'book_id')
-                ->wherePivot('status', 'borrowed')
-                ->withPivot('status', 'borrow_date', 'return_date', 'actual_return_date')
-                ->withTimestamps();
-}
+    public function borrows()
+    {
+        return $this->hasMany(Borrow::class);
+    }
+    public function borrowedBooks()
+    {
+        return $this->belongsToMany(Book::class, 'borrows', 'user_id', 'book_id')
+            ->withTrashed()
+            ->withPivot('status', 'borrow_date', 'return_date', 'actual_return_date')
+            ->withTimestamps();
+    }
+    public function activeBorrowedBooks()
+    {
+        return $this->belongsToMany(Book::class, 'borrows', 'user_id', 'book_id')
+            ->wherePivot('status', 'borrowed')
+            ->withPivot('status', 'borrow_date', 'return_date', 'actual_return_date')
+            ->withTimestamps();
+    }
 }

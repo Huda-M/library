@@ -13,27 +13,24 @@ use Illuminate\Http\Request;
 class BookController extends Controller
 {
     public function index(Request $request)
-{
-    $search = $request->input('search');
-    $categoryId = $request->input('category_id');
-
-    $books = Book::query()
-        ->when($search, function ($query, $search) {
-            return $query->where('name', 'like', "%{$search}%")
-                         ->orWhere('author', 'like', "%{$search}%");
-        })
-        ->when($categoryId, function ($query, $categoryId) {
-            return $query->where('category_id', $categoryId);
-        })
-        ->paginate(12);
-
-    $categories = Category::all();
-
-    return view('books.view_books', [
-        'books' => $books,
-        'categories' => $categories
-    ]);
-}
+    {
+        $search = $request->input('search');
+        $categoryId = $request->input('category_id');
+        $books = Book::query()
+            ->when($search, function ($query, $search) {
+                return $query->where('name', 'like', "%{$search}%")
+                    ->orWhere('author', 'like', "%{$search}%");
+            })
+            ->when($categoryId, function ($query, $categoryId) {
+                return $query->where('category_id', $categoryId);
+            })
+            ->paginate(12);
+        $categories = Category::all();
+        return view('books.view_books', [
+            'books' => $books,
+            'categories' => $categories
+        ]);
+    }
 
     public function create()
     {
@@ -55,7 +52,6 @@ class BookController extends Controller
             'category_id' => (int)$request->category_id,
         ]);
         return redirect()->route('books.index')->with('success', 'Book added successfully!');
-
     }
 
     public function edit(string $id)
@@ -80,15 +76,11 @@ class BookController extends Controller
     }
 
     public function destroy(string $id)
-{
-    $book = Book::findOrFail($id);
-
-    // حذف ناعم بدلاً من الحذف الفعلي
-    $book->delete();
-
-    return redirect()->route('books.index')->with('success', 'Book deleted successfully');
-}
-
+    {
+        $book = Book::findOrFail($id);
+        $book->delete();
+        return redirect()->route('books.index')->with('success', 'Book deleted successfully');
+    }
 
     public function show(string $id)
     {
@@ -96,39 +88,25 @@ class BookController extends Controller
         return $book;
     }
 
+    public function myBooks()
+    {
+        $books = auth()->user()->activeBorrowedBooks()->paginate(12);
+        return view('books.my_books', ['books' => $books]);
+    }
 
-
-
-public function myBooks()
-{
-    $books = auth()->user()->activeBorrowedBooks()->paginate(12);
-    return view('books.my_books', ['books' => $books]);
-}
-
-
-
-
-
-
-
-
-public function returnBook($bookId)
-{
-    $book = Book::findOrFail($bookId);
-    $user = auth()->user();
-
-    $borrow = Borrow::where('user_id', $user->id)
-                    ->where('book_id', $bookId)
-                    ->where('status', 'borrowed')
-                    ->firstOrFail();
-
-    $borrow->update([
-        'status' => 'returned',
-        'actual_return_date' => now(),
-    ]);
-
-    $book->increment('available_copies');
-
-    return redirect()->route('my.books')->with('success', 'Book returned successfully');
-}
+    public function returnBook($bookId)
+    {
+        $book = Book::findOrFail($bookId);
+        $user = auth()->user();
+        $borrow = Borrow::where('user_id', $user->id)
+            ->where('book_id', $bookId)
+            ->where('status', 'borrowed')
+            ->firstOrFail();
+        $borrow->update([
+            'status' => 'returned',
+            'actual_return_date' => now(),
+        ]);
+        $book->increment('available_copies');
+        return redirect()->route('my.books')->with('success', 'Book returned successfully');
+    }
 }

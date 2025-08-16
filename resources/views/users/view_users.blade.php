@@ -5,7 +5,6 @@
                 {{ __('Users Management') }}
             </h2>
 
-            <!-- Search Form -->
             <form action="{{ route('users.index') }}" method="GET" class="relative w-full max-w-md">
                 <div class="flex overflow-hidden rounded-lg shadow-sm">
                     <input

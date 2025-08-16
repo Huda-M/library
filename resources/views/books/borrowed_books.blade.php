@@ -21,7 +21,7 @@
                                         <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-300">Book</th>
                                         <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-300">Borrower</th>
                                         <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-300">Borrow Date</th>
-                                                                                <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-300">Return Date</th>
+                                        <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-300">Return Date</th>
                                         <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-300">Actual Return Date</th>
                                         <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-300">Status</th>
                                     </tr>
@@ -49,7 +49,6 @@
                                             </div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <!-- التحقق من وجود المستخدم -->
                                             @if($borrow->user)
                                                 <div class="text-sm text-gray-900 dark:text-gray-200">
                                                     {{ $borrow->user->first_name }} {{ $borrow->user->last_name }}
@@ -62,7 +61,7 @@
                                                     Deleted User
                                                 </div>
                                                 <div class="text-sm text-gray-500 dark:text-gray-400">
-                                                    N/A
+                                                    Deleted Email
                                                 </div>
                                             @endif
                                         </td>

@@ -8,11 +8,10 @@
     <div class="max-w-xl p-6 mx-auto bg-gray-800 rounded-lg shadow-lg">
         <form action="{{ route('books.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
-
             @if(session('success'))
-            <div class="p-4 mb-4 text-green-700 bg-green-100 rounded">
-                {{ session('success') }}
-            </div>
+                <div class="p-4 mb-4 text-green-700 bg-green-100 rounded">
+                    {{ session('success') }}
+                </div>
             @endif
 
             <div class="mb-4">

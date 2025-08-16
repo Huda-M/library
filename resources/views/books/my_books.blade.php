@@ -1,4 +1,3 @@
-<!-- resources/views/books/my_books.blade.php -->
 <x-app-layout>
     <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
