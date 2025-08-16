@@ -7,7 +7,7 @@
                 type="search"
                 name="search"
                 class="flex-1 px-4 py-3 text-[#1e3a8a] focus:outline-none focus:ring-2 focus:ring-[#1e40af]"
-                placeholder="Search by name or author..."
+                placeholder="Search by name "
                 value="{{ request('search') }}">
             <button
                 type="submit"
